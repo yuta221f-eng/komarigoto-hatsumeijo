@@ -1,90 +1,33 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>困りごと発明所</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f7f5ef">
+<title>困りごと発明所 | 小さな不便から、次の発明を。</title>
 <style>
-:root{--ink:#20332d;--muted:#65746d;--green:#245c48;--lime:#d9ed91;--paper:#f7f5ef;--card:#fffefa;--line:#dce2d8}
-*{box-sizing:border-box}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.65}
-.wrap{width:min(800px,calc(100% - 36px));margin:auto}
-header{padding:24px 0;font-weight:850}.brand span{color:var(--green)}
-.hero{padding:44px 0 48px}
-.eyebrow{font-size:.78rem;font-weight:800;letter-spacing:.12em;color:var(--green)}
-h1{font-size:clamp(2.5rem,8vw,4rem);line-height:1.17;letter-spacing:-.05em;margin:14px 0}
-h1 em{font-style:normal;background:linear-gradient(transparent 62%,var(--lime) 62%)}
-p{color:var(--muted)}
-.button{display:inline-block;border:0;border-radius:999px;padding:13px 22px;background:var(--green);color:white;text-decoration:none;font:inherit;font-weight:750;cursor:pointer}
-.panel,.result{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
-form{display:grid;gap:18px}
-label{font-weight:750;display:block;margin-bottom:7px}
-.hint{font-size:.84rem;margin:3px 0 8px}
-input,textarea{font:inherit;width:100%;padding:12px 14px;border:1px solid #cbd5ca;border-radius:10px;background:#fffefa;color:var(--ink)}
-textarea{min-height:100px;resize:vertical}
-.choices{display:flex;flex-wrap:wrap;gap:8px}
-.choice{border:1px solid #cbd5ca;border-radius:999px;padding:7px 12px;background:white;cursor:pointer;font:inherit}
-.choice[aria-pressed=true]{background:var(--green);color:white}
-.checkline{display:flex;gap:10px;align-items:start;font-size:.9rem;color:var(--muted)}
-.checkline input{width:auto;margin-top:6px}
-.notice{font-size:.82rem;background:#f0f2e9;padding:12px;border-radius:10px}
-.result-wrap{display:none;margin-top:20px}.result-wrap.visible{display:block}
-.badge{font-size:.75rem;font-weight:800;background:#fff0d8;color:#8a5518;padding:5px 10px;border-radius:999px}
-.idea{background:#eef3df;border-radius:12px;padding:15px;margin-top:15px}
-.result h3{font-size:1.35rem}.result h4{margin:18px 0 5px}
-footer{padding:28px 0;color:var(--muted);font-size:.85rem}
-@media(max-width:600px){.hero{padding-top:24px}.panel,.result{padding:17px}}
-</style>
-</head>
-<body>
-<header class="wrap"><div class="brand">困りごと<span>発明所</span></div></header>
-<main class="wrap">
-<section class="hero">
-<div class="eyebrow">あなたの声から、暮らしのアイデアへ</div>
-<h1>その「ちょっと不便」が、<br><em>次の発明</em>になる。</h1>
-<p>毎日の小さな困りごとを教えてください。解決のヒントを一緒に考えます。</p>
-</section>
-<section class="panel">
-<h2>最近の「困った」を教えてください</h2>
-<p class="hint">具体的な場面がわかるほど、アイデアが生まれやすくなります。個人情報は書かないでください。</p>
-<form id="form">
-<div><label for="title">困りごとをひとことで *</label><input id="title" required maxlength="70" placeholder="例：雨の日、ぬれた傘の置き場所に困る"></div>
-<div><label for="scene">どんなときに困りますか？ *</label><textarea id="scene" required maxlength="500" placeholder="いつ、どこで、何が起きるかを教えてください"></textarea></div>
-<div><label>どのくらいの頻度ですか？ *</label><div class="choices" data-key="frequency"><button type="button" class="choice">毎日</button><button type="button" class="choice">週に数回</button><button type="button" class="choice">月に数回</button><button type="button" class="choice">たまに</button></div></div>
-<div><label>困り度はどのくらい？ *</label><div class="choices" data-key="severity"><button type="button" class="choice">1 ちょっと気になる</button><button type="button" class="choice">2 面倒</button><button type="button" class="choice">3 かなり困る</button><button type="button" class="choice">4 ほぼ毎回ストレス</button></div></div>
-<div><label for="attempt">今はどうしていますか？（任意）</label><textarea id="attempt" maxlength="300" placeholder="例：とりあえず床に置いている"></textarea></div>
-<label class="checkline"><input id="consent" type="checkbox" required><span>投稿内容を匿名のアイデア整理に使うことに同意します。個人情報は書かないでください。</span></label>
-<button class="button" type="submit">困りごとを整理する</button>
-<div class="notice">この試作品はAIに接続していません。入力内容は保存・送信されず、この画面上で模擬結果を表示します。</div>
-</form>
-<div class="result-wrap" id="result" aria-live="polite">
-<div class="result"><span class="badge">模擬結果・AI未接続</span><h3 id="r-title"></h3>
-<h4>困りごとの要約</h4><p id="r-summary"></p>
-<div class="idea"><h4>解決アイデアのたたき台</h4><p id="r-idea"></p></div>
-<h4>次に聞いてみたいこと</h4><p>この困りごとは直近1週間で何回起きましたか？今の対処で変えたい点はどこですか？</p>
-</div></div>
-</section>
-</main>
-<footer class="wrap">困りごと発明所｜試作品</footer>
+:root{--ink:#20332d;--muted:#65746d;--green:#245c48;--lime:#d9ed91;--paper:#f7f5ef;--card:#fffefa;--line:#dce2d8;--orange:#df774f}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.65}.wrap{width:min(1080px,calc(100% - 40px));margin:auto}.nav{height:72px;display:flex;align-items:center;justify-content:space-between}.brand{font-weight:850;text-decoration:none}.brand span{color:var(--green)}.nav>a:last-child{font-size:.9rem;text-decoration:none;color:var(--muted)}.hero{padding:65px 0 75px;display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}.eyebrow{font-size:.78rem;font-weight:800;letter-spacing:.12em;color:var(--green)}h1{font-size:clamp(2.5rem,6vw,4.6rem);line-height:1.16;letter-spacing:-.055em;margin:16px 0 20px}h1 em{font-style:normal;background:linear-gradient(transparent 62%,var(--lime) 62%)}.lead{font-size:1.08rem;color:var(--muted);max-width:510px}.button{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:999px;padding:13px 22px;background:var(--green);color:white;text-decoration:none;font:inherit;font-weight:750;cursor:pointer}.button:hover{background:#174a37}.secondary{background:#e9eee6;color:var(--ink)}.hero .button{margin-top:15px}.hint{font-size:.84rem;color:var(--muted)}.hero-art{min-height:330px;border-radius:28px;background:#e7eddc;position:relative;overflow:hidden;display:grid;place-items:center}.sun{position:absolute;width:205px;height:205px;border-radius:50%;background:var(--lime);top:35px;right:35px}.note{position:relative;background:var(--card);width:250px;padding:24px;border-radius:12px;box-shadow:0 18px 45px #20332d22;transform:rotate(-5deg)}.note small{color:var(--green);font-weight:800}.note strong{display:block;font-size:1.4rem;line-height:1.4;margin:12px 0}.note span{font-size:.84rem;color:var(--muted)}.spark{position:absolute;font-size:2rem;color:var(--orange)}.s1{left:42px;top:50px}.s2{right:34px;bottom:38px}.section{padding:62px 0}.head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:26px}.section h2{font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.2;margin:8px 0}.head>p{color:var(--muted);max-width:390px;margin:0}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.step,.panel,.result{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}.num{display:grid;place-items:center;background:var(--lime);width:36px;height:36px;border-radius:50%;font-weight:850}.step h3{margin:14px 0 5px}.step p,.muted{color:var(--muted)}.form-section{background:#e9eee6}.layout{display:grid;grid-template-columns:.75fr 1.25fr;gap:40px;align-items:start}.intro{position:sticky;top:24px}.intro p{color:var(--muted)}form{display:grid;gap:18px}.field label{font-weight:750;display:block;margin-bottom:7px}.hint{margin:3px 0 8px}input,textarea{font:inherit;width:100%;padding:12px 14px;border:1px solid #cbd5ca;border-radius:10px;background:#fffefa;color:var(--ink)}textarea{min-height:100px;resize:vertical}input:focus,textarea:focus{outline:3px solid var(--lime);border-color:var(--green)}.counter{text-align:right;font-size:.8rem;color:var(--muted)}.choices{display:flex;flex-wrap:wrap;gap:8px}.choice{border:1px solid #cbd5ca;border-radius:999px;padding:7px 12px;background:white;cursor:pointer;font:inherit}.choice[aria-pressed=true]{background:var(--green);color:white;border-color:var(--green)}.checkline{display:flex;gap:10px;align-items:start;font-size:.88rem;color:var(--muted)}.checkline input{width:auto;margin-top:6px}.notice{font-size:.82rem;color:var(--muted);background:#f4f4ec;padding:12px;border-radius:10px}.result-wrap{display:none;margin-top:22px}.result-wrap.visible{display:block;animation:rise .3s ease}@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}.result-top{display:flex;align-items:center;justify-content:space-between;gap:10px}.badge{font-size:.75rem;font-weight:800;background:#fff0d8;color:#8a5518;padding:5px 10px;border-radius:999px}.result h3{font-size:1.4rem;margin:10px 0}.result h4{margin:18px 0 5px}.result p{margin:0;color:var(--muted)}.idea{background:#eef3df;border-radius:12px;padding:15px;margin-top:15px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.prompt{white-space:pre-wrap;font:.86rem/1.7 ui-monospace,Consolas,monospace;background:#1e322b;color:#e9f0e2;padding:20px;border-radius:14px;overflow:auto}.sample{background:#f0e9df}.sample .panel{max-width:750px}.checklist{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.check{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}.check strong{display:block}.check span{font-size:.86rem;color:var(--muted)}footer{padding:26px 0;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}.toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);background:var(--ink);color:white;padding:10px 16px;border-radius:999px;opacity:0;transition:.2s;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:760px){.hero{grid-template-columns:1fr;padding:40px 0 50px;gap:25px}.hero-art{min-height:270px}.steps{grid-template-columns:1fr}.layout{grid-template-columns:1fr;gap:20px}.intro{position:static}.section{padding:45px 0}.head{display:block}.head>p{margin-top:10px}.checklist{grid-template-columns:1fr}.nav{height:60px}}
+</style></head><body>
+<header class="wrap nav"><a class="brand" href="#top">困りごと<span>発明所</span></a><a href="#how">しくみを見る</a></header><main id="top">
+<section class="wrap hero"><div><div class="eyebrow">毎日の困りごとを、試せるアイデアに</div><h1>その「ちょっと不便」が、<br><em>次の発明</em>になる。</h1><p class="lead">困りごとを投稿すると、状況を整理し、まず試せる解決アイデアを提案します。</p><div class="idea" style="max-width:520px"><strong>たとえば</strong><p>「ぬれた傘の置き場がない」→ 家にある物でできる仮置き方法を考えます。</p></div><a class="button" href="#submit">困りごとからアイデアを考える　↓</a><p class="hint">※いまは試作品です。結果は模擬表示で、投稿内容は保存・送信されません。</p></div><div class="hero-art" aria-label="困りごとからアイデアが生まれるイラスト"><div class="sun"></div><span class="spark s1">✳</span><div class="note"><small>困りごと → 試せる工夫</small><strong>ぬれた傘の<br>置き場所がない。</strong><span>家にある物で仮置き場所を作る</span></div><span class="spark s2">✦</span></div></section>
+<section class="wrap section" id="how"><div class="head"><div><div class="eyebrow">HOW IT WORKS</div><h2>声を、アイデアの種に。</h2></div><p>投稿から始まる小さな実験です。日常の「面倒」を集め、解決のヒントを形にします。</p></div><div class="steps"><article class="step"><div class="num">1</div><h3>困りごとを投稿</h3><p>いつ・どこで・何に困ったかを、あなたの言葉で教えてください。</p></article><article class="step"><div class="num">2</div><h3>解決の種を考える</h3><p>投稿を整理し、試せそうなアイデアや質問をまとめます。</p></article><article class="step"><div class="num">3</div><h3>みんなで試す</h3><p>反応が集まった案から、簡単な試作品や検証を行います。</p></article></div></section>
+<section class="form-section section" id="submit"><div class="wrap layout"><div class="intro"><div class="eyebrow">YOUR EVERYDAY PROBLEM</div><h2>最近の「困った」を<br>教えてください。</h2><p>具体的な場面がわかるほど、解決のアイデアが生まれやすくなります。個人情報や住所などは書かないでください。</p><div class="notice">この試作品は送信内容を外部へ送りません。ブラウザー内で模擬結果を表示します。</div></div><div class="panel"><form id="problem-form">
+<div class="field"><label for="title">ひとことで言うと？ *</label><p class="hint">例：雨の日、ぬれた傘の置き場所に困る</p><input id="title" required maxlength="70" placeholder="困りごとを短く書いてください"><div class="counter" id="title-count">0 / 70</div></div>
+<div class="field"><label for="scene">どんなときに困りますか？ *</label><p class="hint">いつ、どこで、何が起きるかを教えてください。</p><textarea id="scene" required maxlength="500" placeholder="例：平日の夕方、子どもを抱っこして買い物から帰るとき…"></textarea><div class="counter" id="scene-count">0 / 500</div></div>
+<div class="field"><label>どのくらいの頻度ですか？ *</label><div class="choices" data-name="frequency"><button type="button" class="choice" aria-pressed="false">毎日</button><button type="button" class="choice" aria-pressed="false">週に数回</button><button type="button" class="choice" aria-pressed="false">月に数回</button><button type="button" class="choice" aria-pressed="false">たまに</button></div></div>
+<div class="field"><label>困り度はどのくらい？ *</label><div class="choices" data-name="severity"><button type="button" class="choice" aria-pressed="false">1 ちょっと気になる</button><button type="button" class="choice" aria-pressed="false">2 面倒</button><button type="button" class="choice" aria-pressed="false">3 かなり困る</button><button type="button" class="choice" aria-pressed="false">4 ほぼ毎回ストレス</button></div></div>
+<div class="field"><label for="attempt">今はどうしていますか？</label><textarea id="attempt" maxlength="300" placeholder="例：とりあえず床に置いている"></textarea><div class="counter" id="attempt-count">0 / 300</div></div>
+<div class="field"><label for="email">続報を受け取りたい方（任意）</label><p class="hint">メールアドレスはこの試作品では保存・送信されません。</p><input id="email" type="email" autocomplete="email" placeholder="name@example.com"></div>
+<label class="checkline"><input id="consent" type="checkbox" required><span>投稿内容を匿名の検証・アイデア整理に使うことに同意します。個人情報は書かないでください。</span></label><button class="button" type="submit">困りごとを整理する</button><div class="notice">模擬分析です。AI APIには接続せず、入力データは保存しません。</div></form>
+<div id="result-wrap" class="result-wrap" aria-live="polite"><div class="result"><div class="result-top"><div class="eyebrow">投稿の整理結果</div><span class="badge">模擬分析・AI未接続</span></div><h3 id="result-title"></h3><h4>困りごとの要約</h4><p id="result-summary"></p><div class="idea"><h4>解決アイデアのたたき台</h4><p id="result-idea"></p></div><h4>次に聞いてみたいこと</h4><p id="result-question"></p><div class="actions"><button class="button secondary" type="button" id="copy-button">結果をコピー</button><button class="button secondary" type="button" id="reset-button">別の困りごとを投稿</button></div></div></div></div></div></section>
+<section class="sample section"><div class="wrap"><div class="head"><div><div class="eyebrow">EXAMPLE RESULT</div><h2>こんな整理結果が返ります。</h2></div><p>下はサンプルです。実際の投稿をAIが処理した結果ではありません。</p></div><div class="panel"><div class="result-top"><div class="eyebrow">投稿例：雨の日の傘</div><span class="badge">表示例</span></div><h3>「ぬれた傘の置き場所に困る」</h3><p class="muted">外出先から戻ったあと、ぬれた傘を乾かすまでの一時置き場がなく、床や玄関がぬれてしまう。</p><div class="idea"><h4>試せるアイデア</h4><p>家にある洗面器や古タオルを玄関に置き、1週間だけ傘の仮置き場所を固定する。準備時間と床のぬれ具合を記録する。</p></div><h4>需要を確かめる質問</h4><p class="muted">この不便は月に何回起きますか？解決のために、今なにか工夫していますか？</p></div></div></section>
+</main><footer><div class="wrap">困りごと発明所｜試作品 v0.1 ・ 投稿内容は端末内だけで扱うデモです。</div></footer><div class="toast" id="toast" role="status"></div>
 <script>
-const selected={frequency:"",severity:""};
-document.querySelectorAll(".choices").forEach(group=>group.addEventListener("click",e=>{
- const button=e.target.closest(".choice");if(!button)return;
- group.querySelectorAll(".choice").forEach(b=>b.setAttribute("aria-pressed","false"));
- button.setAttribute("aria-pressed","true");selected[group.dataset.key]=button.textContent.trim();
-}));
-document.querySelector("#form").addEventListener("submit",e=>{
- e.preventDefault();
- if(!selected.frequency||!selected.severity){alert("頻度と困り度を選んでください");return}
- const title=document.querySelector("#title").value.trim();
- const scene=document.querySelector("#scene").value.trim();
- const attempt=document.querySelector("#attempt").value.trim();
- document.querySelector("#r-title").textContent=title;
- document.querySelector("#r-summary").textContent=scene+"（頻度："+selected.frequency+"、困り度："+selected.severity+"）"+(attempt?" 現在は「"+attempt+"」と対処しています。":"");
- document.querySelector("#r-idea").textContent="まずは「"+title+"」が起きる場面で、家にあるものや手順の工夫だけで1週間試せる方法を考えてみましょう。これはAIが生成した回答ではなく、模擬提案です。";
- document.querySelector("#result").classList.add("visible");
- document.querySelector("#result").scrollIntoView({behavior:"smooth",block:"center"});
-});
-</script>
-</body>
-</html>
+const form=document.querySelector('#problem-form'),selected={frequency:'',severity:''};
+document.querySelectorAll('.choices').forEach(group=>group.addEventListener('click',event=>{const button=event.target.closest('.choice');if(!button)return;group.querySelectorAll('.choice').forEach(item=>item.setAttribute('aria-pressed','false'));button.setAttribute('aria-pressed','true');selected[group.dataset.name]=button.textContent.trim()}));
+[['title',70],['scene',500],['attempt',300]].forEach(([id,max])=>{const field=document.getElementById(id),counter=document.getElementById(id+'-count');field.addEventListener('input',()=>counter.textContent=`${field.value.length} / ${max}`)});
+function toast(message){const el=document.querySelector('#toast');el.textContent=message;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2200)}
+form.addEventListener('submit',event=>{event.preventDefault();if(!selected.frequency||!selected.severity){toast('頻度と困り度を選んでください');return}const title=document.querySelector('#title').value.trim(),scene=document.querySelector('#scene').value.trim(),attempt=document.querySelector('#attempt').value.trim();document.querySelector('#result-title').textContent=title;document.querySelector('#result-summary').textContent=`${scene}（頻度：${selected.frequency}、困り度：${selected.severity}）${attempt?` 現在は「${attempt}」と対処しています。`:''}`;document.querySelector('#result-idea').textContent=`まずは「${title}」が起きる場面で、家にあるものや手順の工夫だけで1週間試せる方法を考えます。効果を記録し、負担が減ったか確かめましょう。これはAIが生成した回答ではなく、模擬提案です。`;document.querySelector('#result-question').textContent='この困りごとは直近1週間で何回起きましたか？今の対処で、特に変えたい点はどこですか？';const result=document.querySelector('#result-wrap');result.classList.add('visible');result.scrollIntoView({behavior:'smooth',block:'center'})});
+async function copyText(text){try{await navigator.clipboard.writeText(text);toast('コピーしました')}catch{toast('コピーできませんでした')}}
+document.querySelector('#copy-button').addEventListener('click',()=>copyText(`${document.querySelector('#result-title').textContent}\n要約：${document.querySelector('#result-summary').textContent}\nアイデア：${document.querySelector('#result-idea').textContent}\n質問：${document.querySelector('#result-question').textContent}\n※模擬分析・AI未接続`));document.querySelector('#copy-prompt').addEventListener('click',()=>copyText(document.querySelector('#prompt').textContent));
+document.querySelector('#reset-button').addEventListener('click',()=>{form.reset();Object.keys(selected).forEach(key=>selected[key]='');document.querySelectorAll('.choice').forEach(button=>button.setAttribute('aria-pressed','false'));document.querySelector('#result-wrap').classList.remove('visible');document.querySelector('#submit').scrollIntoView({behavior:'smooth'})});
+</script></body></html>
